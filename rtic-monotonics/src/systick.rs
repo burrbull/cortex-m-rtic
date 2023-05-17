@@ -109,7 +109,7 @@ impl Systick {
 
     /// Timeout at a specific time.
     pub async fn timeout_at<F: Future>(
-        instant: <Self as Monotonic>::Instant,
+        instant: Instant,
         future: F,
     ) -> Result<F::Output, TimeoutError> {
         SYSTICK_TIMER_QUEUE
@@ -136,7 +136,7 @@ impl Systick {
 
     /// Delay to some specific time instant.
     #[inline]
-    pub async fn delay_until(instant: <Self as Monotonic>::Instant) {
+    pub async fn delay_until(instant: Instant) {
         SYSTICK_TIMER_QUEUE.delay_until::<Self>(instant).await;
     }
 }
